@@ -20,13 +20,13 @@
 <template name="person">
   <li>
     <p class="person">First:
-      <input type="text" id="firstName" value="{{firstName}}" /> Last:
-      <input type="text" id="lastName" value="{{lastName}}" />
+      <input type="text" id="firstName" value="{{name.firstName}}" /> Last:
+      <input type="text" id="lastName" value="{{name.lastName}}" />
     </p>
-    <p>Full Name: {{fullName}}
+    <p>Full Name: {{name.fullName}}
     </p>
     {{#if friends}}
-    <h3>{{firstName}}'s friends:</h3>
+    <h3>{{name.firstName}}'s friends:</h3>
     <ul>
       {{#each friends}} {{> friend}} {{/each}}
     </ul>
@@ -38,13 +38,13 @@
 <template name="friend">
   <li>
     <p class="friend">First:
-      <input type="text" id="firstName" value="{{firstName}}" /> Last:
-      <input type="text" id="lastName" value="{{lastName}}" />
+      <input type="text" id="firstName" value="{{name.firstName}}" /> Last:
+      <input type="text" id="lastName" value="{{name.lastName}}" />
     </p>
-    <p>Full Name: {{fullName}}
+    <p>Full Name: {{name.fullName}}
     </p>
     {{#if friendsOfFriends}}
-    <h3>{{firstName}}'s friends:</h3>
+    <h3>{{name.firstName}}'s friends:</h3>
     <ul class='friendsOfFriends'>
       {{#each friendsOfFriends}} {{> friendsOfFriends}} {{/each}}
     </ul>
@@ -55,10 +55,10 @@
 <template name="friendsOfFriends">
   <li>
     <p class="friendsOfFriends">First:
-      <input type="text" id="firstName" value="{{firstName}}" /> Last:
-      <input type="text" id="lastName" value="{{lastName}}" />
+      <input type="text" id="firstName" value="{{name.firstName}}" /> Last:
+      <input type="text" id="lastName" value="{{name.lastName}}" />
     </p>
-    <p>Full Name: {{fullName}}
+    <p>Full Name: {{name.fullName}}
     </p>
 
   </li>

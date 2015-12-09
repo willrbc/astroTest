@@ -1,5 +1,5 @@
-PersonBase = Astro.Class({
-  name: 'PersonBase',
+Name = Astro.Class({
+  name: 'Name',
   fields: {
     firstName: {
       type: 'string'
@@ -26,6 +26,19 @@ PersonBase = Astro.Class({
     setFullName: function () {
       if (this.firstName && this.lastName) {
         this.set('fullName', this.firstName + ' ' + this.lastName);
+      }
+    }
+  }
+});
+
+PersonBase = Astro.Class({
+  name: 'PersonBase',
+  fields: {
+    name: {
+      type: 'object',
+      nested: 'Name',
+      default: function () {
+        return {};
       }
     }
   }
@@ -75,7 +88,7 @@ if (Meteor.isClient) {
     'change .person input': function (e, tmpl) {
       var person = tmpl.data;
       var input = e.currentTarget;
-      person.set(input.id, input.value);
+      person.set('name.' +input.id, input.value);
       console.log('top level', input);
       console.log(person);
     },
@@ -89,7 +102,7 @@ if (Meteor.isClient) {
     'change .friend input': function (e, tmpl) {
       var person = tmpl.data;
       var input = e.currentTarget;
-      person.set(input.id, input.value);
+      person.set('name.' +input.id, input.value);
       console.log('friendsOfFriends', input);
       console.log(person);
       //person.save();
@@ -100,7 +113,7 @@ if (Meteor.isClient) {
     'change .friendsOfFriends input': function (e, tmpl) {
       var person = tmpl.data;
       var input = e.currentTarget;
-      person.set(input.id, input.value);
+      person.set('name.' +input.id, input.value);
       console.log('friendsOfFriends', input);
       console.log(person);
       //person.save();
@@ -112,26 +125,34 @@ if (Meteor.isClient) {
 if (Meteor.isServer) {
   Meteor.startup(function () {
 
+    People.remove({});
 
     if (People.find()
       .count() < 2) {
       _.each(_.range(2), function () {
         console.log('creating people');
         var p = new Person();
-        p.set('firstName', faker.name.firstName());
-        p.set('lastName', faker.name.lastName());
+        p.set('name', {
+          firstName: faker.name.firstName(),
+          lastName: faker.name.firstName()
+        });
+
         var friends = [];
         _.each(_.range(1), function () {
           var friendsOfFriends = [];
           _.each(_.range(1), function () {
             friendsOfFriends.push({
-              firstName: faker.name.firstName(),
-              lastName: faker.name.lastName()
+              name: {
+                firstName: faker.name.firstName(),
+                lastName: faker.name.lastName()
+              }
             });
           });
           friends.push({
-            firstName: faker.name.firstName(),
-            lastName: faker.name.lastName(),
+            name: {
+              firstName: faker.name.firstName(),
+              lastName: faker.name.lastName(),
+            },
             friendsOfFriends: friendsOfFriends
           });
         });

@@ -1,0 +1,65 @@
+<head>
+  <title>astroTest</title>
+</head>
+
+<body>
+  <h1>Welcome to Meteor!</h1>
+
+  {{> hello}}
+</body>
+
+<template name="hello">
+  <ul>
+    {{#each people}}
+    {{>person}}
+      {{/each}}
+
+  </ul>
+</template>
+
+<template name="person">
+  <li>
+    <p class="person">First:
+      <input type="text" id="firstName" value="{{firstName}}" /> Last:
+      <input type="text" id="lastName" value="{{lastName}}" />
+    </p>
+    <p>Full Name: {{fullName}}
+    </p>
+    {{#if friends}}
+    <h3>{{firstName}}'s friends:</h3>
+    <ul>
+      {{#each friends}} {{> friend}} {{/each}}
+    </ul>
+    {{/if}}
+  </li>
+</template>
+
+
+<template name="friend">
+  <li>
+    <p class="friend">First:
+      <input type="text" id="firstName" value="{{firstName}}" /> Last:
+      <input type="text" id="lastName" value="{{lastName}}" />
+    </p>
+    <p>Full Name: {{fullName}}
+    </p>
+    {{#if friendsOfFriends}}
+    <h3>{{firstName}}'s friends:</h3>
+    <ul class='friendsOfFriends'>
+      {{#each friendsOfFriends}} {{> friendsOfFriends}} {{/each}}
+    </ul>
+    {{/if}}
+  </li>
+</template>
+
+<template name="friendsOfFriends">
+  <li>
+    <p class="friendsOfFriends">First:
+      <input type="text" id="firstName" value="{{firstName}}" /> Last:
+      <input type="text" id="lastName" value="{{lastName}}" />
+    </p>
+    <p>Full Name: {{fullName}}
+    </p>
+
+  </li>
+</template>

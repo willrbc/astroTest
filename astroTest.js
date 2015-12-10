@@ -1,31 +1,34 @@
 Name = Astro.Class({
   name: 'Name',
   fields: {
+    zfullName: {
+      type: 'string'
+    },
     firstName: {
       type: 'string'
     },
     lastName: {
       type: 'string'
-    },
-    fullName: {
-      type: 'string'
     }
   },
   events: {
     afterChange: function (e) {
-
+      console.log("afterChange Event");
+      console.log("changing:", this.firstName);
+      console.log("Name level changed", e.data.fieldName);
       if (e.data.fieldName === 'firstName' || e.data.fieldName === 'lastName') {
-        this.setFullName();
+        this.setzfullName();
       }
     },
     afterInit: function () {
-      this.setFullName();
+      //this.setzfullName();
     }
   },
   methods: {
-    setFullName: function () {
+    setzfullName: function () {
       if (this.firstName && this.lastName) {
-        this.set('fullName', this.firstName + ' ' + this.lastName);
+        this.set('zfullName', this.firstName + ' ' + this.lastName);
+      //  console.log(this);
       }
     }
   }
@@ -55,6 +58,12 @@ Friend = PersonBase.inherit({
         return [];
       }
     }
+  },
+
+  events:{
+    afterChange:function(e){
+      // console.log("Friend changed", e.data.fieldName);
+    }
   }
 });
 
@@ -72,6 +81,11 @@ Person = PersonBase.inherit({
         return [];
       }
     }
+  },
+  events:{
+    afterChange:function(e){
+      // console.log("Top Level Person changed", e.data.fieldName);
+    }
   }
 });
 
@@ -85,38 +99,40 @@ if (Meteor.isClient) {
   });
 
   Template.person.events({
-    'change .person input': function (e, tmpl) {
+    'blur .person input': function (e, tmpl) {
       var person = tmpl.data;
       var input = e.currentTarget;
-      person.set('name.' +input.id, input.value);
-      console.log('top level', input);
-      console.log(person);
+      person.set('name.' + input.id, input.value);
+
     },
-    'change, input': function (e, tmpl) {
+    'click button': function (e, tmpl) {
       var person = tmpl.data.get();
+      console.clear();
+      console.log(person);
       person.save();
     }
   });
 
   Template.friend.events({
-    'change .friend input': function (e, tmpl) {
+    'blur .friend input': function (e, tmpl) {
       var person = tmpl.data;
+
       var input = e.currentTarget;
-      person.set('name.' +input.id, input.value);
-      console.log('friendsOfFriends', input);
-      console.log(person);
-      //person.save();
+      person.set('name.' + input.id, input.value);
+      //console.log('friends', input);
+      //console.log(friend);
+
     }
   });
 
   Template.friendsOfFriends.events({
-    'change .friendsOfFriends input': function (e, tmpl) {
+    'blur .friendsOfFriends input': function (e, tmpl) {
       var person = tmpl.data;
       var input = e.currentTarget;
-      person.set('name.' +input.id, input.value);
-      console.log('friendsOfFriends', input);
-      console.log(person);
-      //person.save();
+      person.set('name.' + input.id, input.value);
+      // console.log('friendsOfFriends', input);
+      // console.log(person);
+      // person.save();
     }
   });
 

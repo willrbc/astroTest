@@ -10,22 +10,22 @@
 
 <template name="hello">
   <ul>
-    {{#each people}}
-    {{>person}}
-      {{/each}}
+
+    {{#each people}} {{>person}} {{/each}}
 
   </ul>
 </template>
 
 <template name="person">
   <li>
+    <button>Save</button>
     <p class="person">First:
       <input type="text" id="firstName" value="{{name.firstName}}" /> Last:
       <input type="text" id="lastName" value="{{name.lastName}}" />
     </p>
-    <p>Full Name: {{name.fullName}}
+    <p>Full Name: {{name.zfullName}}
     </p>
-    {{#if friends}}
+  {{#if friends}}
     <h3>{{name.firstName}}'s friends:</h3>
     <ul>
       {{#each friends}} {{> friend}} {{/each}}
@@ -41,7 +41,7 @@
       <input type="text" id="firstName" value="{{name.firstName}}" /> Last:
       <input type="text" id="lastName" value="{{name.lastName}}" />
     </p>
-    <p>Full Name: {{name.fullName}}
+    <p>Full Name: {{name.zfullName}} {{friendIndex}}
     </p>
     {{#if friendsOfFriends}}
     <h3>{{name.firstName}}'s friends:</h3>
@@ -58,7 +58,7 @@
       <input type="text" id="firstName" value="{{name.firstName}}" /> Last:
       <input type="text" id="lastName" value="{{name.lastName}}" />
     </p>
-    <p>Full Name: {{name.fullName}}
+    <p>Full Name: {{name.zfullName}}
     </p>
 
   </li>

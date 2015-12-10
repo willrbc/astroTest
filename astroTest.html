@@ -23,7 +23,7 @@
       <input type="text" id="firstName" value="{{name.firstName}}" /> Last:
       <input type="text" id="lastName" value="{{name.lastName}}" />
     </p>
-    <p>Full Name: {{name.zfullName}}
+    <p>Full Name: {{name.fullName}}
     </p>
   {{#if friends}}
     <h3>{{name.firstName}}'s friends:</h3>
@@ -41,7 +41,7 @@
       <input type="text" id="firstName" value="{{name.firstName}}" /> Last:
       <input type="text" id="lastName" value="{{name.lastName}}" />
     </p>
-    <p>Full Name: {{name.zfullName}} {{friendIndex}}
+    <p>Full Name: {{name.fullName}} {{friendIndex}}
     </p>
     {{#if friendsOfFriends}}
     <h3>{{name.firstName}}'s friends:</h3>
@@ -58,7 +58,7 @@
       <input type="text" id="firstName" value="{{name.firstName}}" /> Last:
       <input type="text" id="lastName" value="{{name.lastName}}" />
     </p>
-    <p>Full Name: {{name.zfullName}}
+    <p>Full Name: {{name.fullName}}
     </p>
 
   </li>

@@ -1,13 +1,26 @@
 Name = Astro.Class({
   name: 'Name',
   fields: {
-    zfullName: {
-      type: 'string'
-    },
+
     firstName: {
       type: 'string'
     },
     lastName: {
+      type: 'string'
+    },
+    debug: {
+      type: 'string'
+    },
+    debug1: {
+      type: 'string'
+    },
+    debug2: {
+      type: 'string'
+    },
+    debug3: {
+      type: 'string'
+    },
+    fullName: {
       type: 'string'
     }
   },
@@ -17,18 +30,18 @@ Name = Astro.Class({
       console.log("changing:", this.firstName);
       console.log("Name level changed", e.data.fieldName);
       if (e.data.fieldName === 'firstName' || e.data.fieldName === 'lastName') {
-        this.setzfullName();
+        this.setfullName();
       }
     },
     afterInit: function () {
-      //this.setzfullName();
+      this.setfullName();
     }
   },
   methods: {
-    setzfullName: function () {
+    setfullName: function () {
       if (this.firstName && this.lastName) {
-        this.set('zfullName', this.firstName + ' ' + this.lastName);
-      //  console.log(this);
+        this.set('fullName', this.firstName + ' ' + this.lastName);
+        //  console.log(this);
       }
     }
   }
@@ -60,8 +73,8 @@ Friend = PersonBase.inherit({
     }
   },
 
-  events:{
-    afterChange:function(e){
+  events: {
+    afterChange: function (e) {
       // console.log("Friend changed", e.data.fieldName);
     }
   }
@@ -82,8 +95,8 @@ Person = PersonBase.inherit({
       }
     }
   },
-  events:{
-    afterChange:function(e){
+  events: {
+    afterChange: function (e) {
       // console.log("Top Level Person changed", e.data.fieldName);
     }
   }
